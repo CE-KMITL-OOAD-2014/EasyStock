@@ -33,7 +33,7 @@
             <li><a href="remove.php?<? echo "username=$username&password=$password"; ?>">Remove</a></li>
             <li><a href="recieve.php?<? echo "username=$username&password=$password"; ?>">Recieve</a>
               <li><a href="sell.php?<? echo "username=$username&password=$password"; ?>">Sell</a>          
-               
+
               </li>
               <li><a href="contact.php?<? echo "username=$username&password=$password"; ?>">Contact Us</a></li>
             </ul>
@@ -42,13 +42,13 @@
       </header>
       <div id="site_content">
         <div id="sidebar_container">     
-          
+
           <div class="sidebar">
             <h3>Client login</h3>
             <form action="edit.php" method="get">  
 
              <p><span>User Name:</span>
-               
+
               <input type="text" id="username" name="username" class="login_input" placeholder="username" value=<? echo $_GET["username"];?> >
             </p>
             <p><span>Password:</span>
@@ -58,12 +58,12 @@
           </div>
         </div>
         <div class="content">
-         
-          
+
+
           <h2>Select product</h2><br>
           
           <p><span>Product code:</span>
-            
+
             <input type="text" id="username" name="productCode"  value=<?  if(isset($_GET["submitProductCode"]))echo $_GET["productCode"];?>>
           </p>
           <input type="submit" name="submitProductCode" value=" Submit Code ">
@@ -71,7 +71,13 @@
           
           <?php
 
-          include "Database.php";
+          include "db.php";
+
+          //set object database
+          $easystockDB=new database();
+          $easystockDB->setName("easystock");
+          $easystockDB->addTable("person");
+          $easystockDB->addTable("product");
 
 
           
@@ -79,9 +85,9 @@
           if(isset($_GET["submitProductCode"])or isset($_GET["submitEdit"])){
 
                              //select product form database to show value 
-            $conn=mysql_connect("localhost","root","password"); 
+            $conn=mysql_connect("localhost","root","root"); 
             mysql_select_db("easystock",$conn);
-            $rs=fncSelectRecord("product","code LIKE '$productCode%'"); } 
+            $rs=$easystockDB->fncSelectRecord("product","code LIKE '$productCode%'"); } 
 
 
 
@@ -95,8 +101,8 @@
                 else{ 
 
                              //database connection 
-                  $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
-                  mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");                        
+                  $conn=mysql_connect("localhost","root","root")or die("****** can't connect to sever ******");
+                  mysql_select_db("easystock",$conn)or die("****** can't select database ******");                        
                   $profit=$price-$cost;
 
                             //find user in database
@@ -116,36 +122,36 @@
                   elseif($rsPerson[code9]==$productCode)$strSQL=$strSQL." SET code9='$code'";
                   elseif($rsPerson[code10]==$productCode)$strSQL=$strSQL." SET code10='$code'";  
                   $strSQL=$strSQL." WHERE user='$username'";
-                  mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
+                  mysql_query($strSQL,$conn) or die("****** can't update database ******");
                   $strSQL="SELECT*FROM person";
                   $result=mysql_query($strSQL,$conn);
 
                             //Update all product detail 
-                  fncUpdateRecord("product","code='$code'","code='$productCode'");
-                  fncUpdateRecord("product","name='$name'","code='$code'");
-                  fncUpdateRecord("product","amount='$amount'","code='$code'");
-                  fncUpdateRecord("product","unitAmount='$unitAmount'","code='$code'");
-                  fncUpdateRecord("product","netWeight='$netWeight'","code='$code'");
-                  fncUpdateRecord("product","unitWeight='$unitNetWeight'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","code='$code'","code='$productCode'");
+                  $easystockDB->fncUpdateRecord("product","name='$name'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","amount='$amount'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","unitAmount='$unitAmount'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","netWeight='$netWeight'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","unitWeight='$unitNetWeight'","code='$code'");
 
-                  fncUpdateRecord("product","currency='$currency'","code='$code'");
-                  fncUpdateRecord("product","cost='$cost'","code='$code'");
-                  fncUpdateRecord("product","price='$price'","code='$code'");
-                  fncUpdateRecord("product","profit='$profit'","code='$code'");
-                  fncUpdateRecord("product","sale='$sale'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","currency='$currency'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","cost='$cost'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","price='$price'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","profit='$profit'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","sale='$sale'","code='$code'");
 
-                  fncUpdateRecord("product","hierarchy='$hierarchy'","code='$code'");
-                  fncUpdateRecord("product","certificate='$certificate'","code='$code'");
-                  fncUpdateRecord("product","expire='$expire'","code='$code'");
-                  fncUpdateRecord("product","authorization='$authorization'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","hierarchy='$hierarchy'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","certificate='$certificate'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","expire='$expire'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","authorization='$authorization'","code='$code'");
 
-                  fncUpdateRecord("product","orderLeadTime='$orderLeadTime'","code='$code'");
-                  fncUpdateRecord("product","unitOrderLeadTime='$unitOrderLeadTime'","code='$code'");
-                  fncUpdateRecord("product","minimumPacking='$minimumPacking'","code='$code'");
-                  fncUpdateRecord("product","unitMinimumPacking='$unitMinimumPacking'","code='$code'");                       
-                  fncUpdateRecord("product","minimumOrder='$minimumOrder'","code='$code'");
-                  fncUpdateRecord("product","paymentTerm='$paymentTerm'","code='$code'");
-                  fncUpdateRecord("product","allocation='$allocation'","code='$code'"); 
+                  $easystockDB->fncUpdateRecord("product","orderLeadTime='$orderLeadTime'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","unitOrderLeadTime='$unitOrderLeadTime'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","minimumPacking='$minimumPacking'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","unitMinimumPacking='$unitMinimumPacking'","code='$code'");                       
+                  $easystockDB->fncUpdateRecord("product","minimumOrder='$minimumOrder'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","paymentTerm='$paymentTerm'","code='$code'");
+                  $easystockDB->fncUpdateRecord("product","allocation='$allocation'","code='$code'"); 
 
                   mysql_close($conn); }}}  
                   
@@ -230,7 +236,7 @@
 
             <?php 
             function isOwner($code,$username,$password){
-              $conn=mysql_connect("localhost","root","password"); 
+              $conn=mysql_connect("localhost","root","root"); 
               mysql_select_db("easystock",$conn);
               $resultPerson=mysql_query("SELECT*FROM person WHERE user LIKE '$username%' AND password LIKE '$password%'",$conn);
               $rsPerson=mysql_fetch_array($resultPerson);
@@ -255,9 +261,11 @@
             
 
             function isAlreadyHaveProduct($code){
-              $conn=mysql_connect("localhost","root","password"); 
+              $conn=mysql_connect("localhost","root","root"); 
               mysql_select_db("easystock",$conn);
-              $rs=fncSelectRecord("product","code LIKE '$code%'");
+              $db=new database();
+              $db->addTable("product");
+              $rs=$db->fncSelectRecord("product","code LIKE '$code%'");
               if($rs[code]!=$code)return 0;
               else return 1;
               mysql_close($conn);
