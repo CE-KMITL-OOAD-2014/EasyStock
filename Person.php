@@ -39,13 +39,11 @@ class Person{
 	}
 	public function addProduct($code)
 	{
-		//$odj=new Product();
-		//$odj->setCode($code);
-		//$this->product[]=$ogj;
+		
 		if($code!=""){
-		$this->product[]=$code;		
-		$this->numProduct=$this->numProduct+1;
-	}
+			$this->product[]=$code;		
+			$this->numProduct=$this->numProduct+1;
+		}
 
 	}
 	public function deleteProduct($n)

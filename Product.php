@@ -3,7 +3,7 @@
 	
 </head>
 <body>
-<?php
+	<?php
 /**
 * 
 */
@@ -16,14 +16,14 @@ class Product
 	private $amount =  0.0;
 	private $unitAmount = "unidentified";
     private $netWeight = 0.0;//
-	private $unitWeight = "unidentified";
+    private $unitWeight = "unidentified";
 
 	// finance
-	private $currency = "unidentified";
-	private $cost = 0.0;
+    private $currency = "unidentified";
+    private $cost = 0.0;
 	private $price = 0.0;//
 	private $profit = 0.0;
-    private $sale = 0.0;
+	private $sale = 0.0;
 
 	// feature
 	private $hierarchy = "unidentified";// ระดับชั้น
@@ -34,9 +34,9 @@ class Product
 	// logistic
     private $orderLeadTime = 0; // ระยะเวลาสั่งซื้อ(หน่วยเป็น ชม) ระยะเวลาการสั่งของ
     private $unitOrderLeadTime = "unidentified";
-	private $minimumPacking =  0.0;
-	private $unitMinimumPacking = "unidentified";
-	private $minimumOrder = 0;
+    private $minimumPacking =  0.0;
+    private $unitMinimumPacking = "unidentified";
+    private $minimumOrder = 0;
 	private $paymentTerm = "unidentified"; // เงื่อนไขการชำระ ex cash 30 วัน,cheque 3 วัน
 													// FACTORY=ราคาหน้าโรงงานผลิต
 													// FOB=ราคาถึงท่าเรือของผู้ขาย
