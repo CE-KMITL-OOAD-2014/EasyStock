@@ -90,7 +90,7 @@
             else{  
 
                             //database connection   
-             $conn=mysql_connect("rp6150mnf8.database.windows.net,1433","mrmidnight","A1525125625a")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
+             $conn=mysql_connect("rp6150mnf8","mrmidnight","A1525125625a")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
              mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");
 
                             //insert to database
@@ -253,7 +253,7 @@
                                   /*** Home ***/
 
                             //database connection
-                                  $conn=mysql_connect("rp6150mnf8.database.windows.net,1433","mrmidnight","A1525125625a"); 
+                                  $conn=mysql_connect("rp6150mnf8","mrmidnight","A1525125625a"); 
                                   mysql_select_db("easystock",$conn); 
 
                             //scan user by username and password                             
