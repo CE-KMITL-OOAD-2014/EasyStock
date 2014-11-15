@@ -99,86 +99,34 @@
 
 <?php
                             include "Person.php";
-                            include "Product.php";
+                            include "Product.php";  
 
-
-
-
-                            ////edit
-                            if(isset($_GET["submitEdit"])){
-                            $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
-                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");                        
-                            $profit=$price-$cost; 
-                            //find user in database
-                            $resultPerson=mysql_query("SELECT*FROM person WHERE user LIKE '$username%' AND password LIKE '$password%'",$conn);
-                            $rsPerson=mysql_fetch_array($resultPerson);
-                            //Update product primary key at person database
-                             $strSQL="UPDATE person";
-                             if($rsPerson[code1]==$productCode)$strSQL=$strSQL." SET code1='$code'";
-                             elseif($rsPerson[code2]==$productCode)$strSQL=$strSQL." SET code2='$code'";
-                             elseif($rsPerson[code3]==$productCode)$strSQL=$strSQL." SET code3='$code'";
-                             elseif($rsPerson[code4]==$productCode)$strSQL=$strSQL." SET code4='$code'";
-                             elseif($rsPerson[code5]==$productCode)$strSQL=$strSQL." SET code5='$code'";
-                             elseif($rsPerson[code6]==$productCode)$strSQL=$strSQL." SET code6='$code'";
-                             elseif($rsPerson[code7]==$productCode)$strSQL=$strSQL." SET code7='$code'";
-                             elseif($rsPerson[code8]==$productCode)$strSQL=$strSQL." SET code8='$code'";
-                             elseif($rsPerson[code9]==$productCode)$strSQL=$strSQL." SET code9='$code'";
-                             elseif($rsPerson[code10]==$productCode)$strSQL=$strSQL." SET code10='$code'";  
-                            $strSQL=$strSQL." WHERE user='$username'";
-                            mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
-                            $strSQL="SELECT*FROM person";
-                            $result=mysql_query($strSQL,$conn);
-                            //Update all detail product
-                           //fncUpdateRecord("product","code='$code'","code='$productCode'");
-                           fncUpdateRecord("product","name='$name'","code='$code'");
-                           fncUpdateRecord("product","amount='$amount'","code='$code'");
-                           fncUpdateRecord("product","unitAmount='$unitAmount'","code='$code'");
-                           fncUpdateRecord("product","netWeight='$netWeight'","code='$code'");
-                           fncUpdateRecord("product","unitWeight='$unitNetWeight'","code='$code'");
-
-                           fncUpdateRecord("product","currency='$currency'","code='$code'");
-                           fncUpdateRecord("product","cost='$cost'","code='$code'");
-                           fncUpdateRecord("product","price='$price'","code='$code'");
-                           fncUpdateRecord("product","profit='$profit'","code='$code'");
-                           fncUpdateRecord("product","sale='$sale'","code='$code'");
-
-                           fncUpdateRecord("product","hierarchy='$hierarchy'","code='$code'");
-                           fncUpdateRecord("product","certificate='$certificate'","code='$code'");
-                           fncUpdateRecord("product","expire='$expire'","code='$code'");
-                           fncUpdateRecord("product","authorization='$authorization'","code='$code'");
-
-                           fncUpdateRecord("product","orderLeadTime='$orderLeadTime'","code='$code'");
-                           fncUpdateRecord("product","unitOrderLeadTime='$unitOrderLeadTime'","code='$code'");
-                           fncUpdateRecord("product","minimumPacking='$minimumPacking'","code='$code'");
-                           fncUpdateRecord("product","unitMinimumPacking='$unitMinimumPacking'","code='$code'");                       
-                           fncUpdateRecord("product","minimumOrder='$minimumOrder'","code='$code'");
-                           fncUpdateRecord("product","paymentTerm='$paymentTerm'","code='$code'");
-                           fncUpdateRecord("product","allocation='$allocation'","code='$code'");                         
-                           mysql_close($conn);}
-
-
-                            ////remove
+                            /*** remove ***/
                             if(isset($_GET["submitRemove"])){
+                             
+                            //check     
+                            if(isAlreadyHaveProduct($productCode)==0)print "<br><br>**************  Input wrong product code **************<br><br><br>"; 
+                            else{  
+                            if(isOwner($productCode,$username,$password)==0)print "<br><br>**************  This isn't your product code **************<br><br><br>"; 
+                            else{ 
 
+                            //database conection
                             $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
                             mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");
+
+                            //edit code=0 and save code into lastcode for restore
                              $strSQL="UPDATE product";
-                            $strSQL=$strSQL." SET lastCode='$productCode'";                             
-                            //print $name;
-                            //print $productCode;
+                            $strSQL=$strSQL." SET lastCode='$productCode'";  
                             $strSQL=$strSQL." WHERE code='$productCode'";
                             mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
                             $strSQL="UPDATE product";
-                            $strSQL=$strSQL." SET code='0'";                             
-                            //print $name;
-                            //print $productCode;
+                            $strSQL=$strSQL." SET code='0'"; 
                             $strSQL=$strSQL." WHERE code='$productCode'";
                             mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
-                              //$strSQL=$strSQL." SET amount='$amountSell',sale='$saleSell'";       
-                           
                             $strSQL="SELECT*FROM product";
                             $result=mysql_query($strSQL,$conn);
 
+                            //set code=0 in person database
                             $strSQL="UPDATE person SET code1='0' WHERE code1='$productCode'";mysql_query($strSQL,$conn);$strSQL="SELECT*FROM product";               
                             $result=mysql_query($strSQL,$conn);
                             $strSQL="UPDATE person SET code2='0' WHERE code2='$productCode'";mysql_query($strSQL,$conn);$strSQL="SELECT*FROM product";               
@@ -198,94 +146,111 @@
                             $strSQL="UPDATE person SET code9='0' WHERE code9='$productCode'";mysql_query($strSQL,$conn);$strSQL="SELECT*FROM product";               
                             $result=mysql_query($strSQL,$conn);
                             $strSQL="UPDATE person SET code10='0' WHERE code10='$productCode'";mysql_query($strSQL,$conn);$strSQL="SELECT*FROM product";               
-                            $result=mysql_query($strSQL,$conn);mysql_close($conn);
+                            $result=mysql_query($strSQL,$conn);
 
-                        }
+                            mysql_close($conn); }}}
 
 
-                             ////recieve
-                            if(isset($_GET["submitRecieve"])){                              
+                             /*** recieve ***/
+                            if(isset($_GET["submitRecieve"])){  
+
+                            //check                               
+                           if(isAlreadyHaveProduct($productCode)==0)print "<br><br>**************  Input wrong product code **************<br><br><br>"; 
+                            else{  
+                            if(isOwner($productCode,$username,$password)==0)print "<br><br>**************  This isn't your product code **************<br><br><br>"; 
+                            else{   
+
+                            //database connection                          
                             $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
-                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");                            
-                            //load
+                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");  
+
+                            //load product form database
                             $result=mysql_query("SELECT*FROM product WHERE code LIKE '$productCode%'",$conn);
                             $rs=mysql_fetch_array($result);
-                            //Set value to class then use function sell() to calculate
+
+                            //Set value to class 
                             $productSell=new Product();
-                            $productSell->setAmount($rs[amount]+$amount); 
-                            //$productSell->setCost($rs[cost]);
-                            //$productSell->setPrice($rs[price]);
-                            //$productSell->setSale($rs[sale]);
-                            //$productSell->sell($amount);                          
-                            //update detail to database
+                            $productSell->setAmount($rs[amount]+$amount);
+
                             $amountRecieve=$productSell->getAmount();
-                            //$saleSell=$productSell->getSale();                        
+
+                            //update detail to database                                                 
                             $strSQL="UPDATE product";
                             $strSQL=$strSQL." SET amount='$amountRecieve'";                            
                             $strSQL=$strSQL." WHERE code='$productCode'";
                             mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
                             $strSQL="SELECT*FROM product";
                             $result=mysql_query($strSQL,$conn);
-                            mysql_close($conn);}
+                            mysql_close($conn);  }}}
 
 
 
-                            ////sell
-                            if(isset($_GET["submitSell"])){                              
+                            /*** sell ***/
+                            if(isset($_GET["submitSell"])){  
+
+                            //check   
+                            if(isAlreadyHaveProduct($productCode)==0)print "<br><br>**************  Input wrong product code **************<br><br><br>"; 
+                            else{  
+                            if(isOwner($productCode,$username,$password)==0)print "<br><br>**************  This isn't your product code **************<br><br><br>"; 
+                            else{   
+
+                            //database connection               
                             $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
-                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");                            
-                            //load
+                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");   
+
+                            //load product form database
                             $result=mysql_query("SELECT*FROM product WHERE code LIKE '$productCode%'",$conn);
                             $rs=mysql_fetch_array($result);
+
                             //Set value to class then use function sell() to calculate
                             $productSell=new Product();
                             $productSell->setAmount($rs[amount]); 
                             $productSell->setCost($rs[cost]);
                             $productSell->setPrice($rs[price]);
                             $productSell->setSale($rs[sale]);
-                            $productSell->sell($amount);                          
-                            //update detail to database
+                            $productSell->sell($amount);                                                      
+                            
                             $amountSell=$productSell->getAmount();
-                            $saleSell=$productSell->getSale();                        
+                            $saleSell=$productSell->getSale(); 
+
+                            //update detail to database                       
                             $strSQL="UPDATE product";
                             $strSQL=$strSQL." SET amount='$amountSell',sale='$saleSell'";                            
                             $strSQL=$strSQL." WHERE code='$productCode'";
                             mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
                             $strSQL="SELECT*FROM product";
                             $result=mysql_query($strSQL,$conn);
-                            mysql_close($conn);}
+                            mysql_close($conn);  }}}
 
 
                             
-                              ////register
+                              /*** register ***/
                             if(isset($_GET["submitReg"])){
 
+                            /*** check ***/  
+                            if(isAlreadyHavePerson($username)==1)print "<br><br>************** This username has been publish **************<br><br>";
+                            else{  
+
+                            //database connection   
                              $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
                             mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");
+
+                            //insert to database
+                           fncInsertRecord("person","code1","1111");
+                           fncUpdateRecord("person","user='$username'","code1=1111");
+                           fncUpdateRecord("person","password='$password'","code1=1111");
+
+                           mysql_close($conn); }}
+
+
+                             /*** add ***/
+                              if(isset($_GET["submitAdd"])){
+                                if(isAlreadyHaveProduct($code)==1)print "<br><br>************** This product code has been publish **************<br><br>";
+                                else{
+                                $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
+                                 mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");
                           
-                           
-                           fncInsertRecord("person","code1","5555");
-                            fncUpdateRecord("person","user='$username'","code1=5555");
-                           fncUpdateRecord("person","password='$password'","code1=5555");
-                           mysql_close($conn);
-
-                        }
-
-
-
-
-
-
-
-                            ////add
-                            if(isset($_GET["submitAdd"])){
-                            $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
-                            mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");
-                           // $strSQL="INSERT INTO product(name,code,amount,unitAmount,netWeight,unitWeight,currency,cost,price,sale,hierarchy,certificate,expire,authorization,orderLeadTime,unitOrederLeadTime,minimumPacking,unitMinimumPacking,minimumOrder,paymentTerm,allocation)";
-                          // $strSQL=$strSQL." VALUES('$name','$code','$amount','$unitAmount','$netWeight','$unitNetWeight','$currency','$cost','$price','$sale','$hierarchy','$certificate','$expire','$authorization','$orderLeadTime','$unitOrederLeadTime','$minimumPacking','$unitMinimumPacking','$minimumOrder','$paymentTerm','$allocation')";
-                           // $strSQL="INSERT INTO product(name,code,amount,unitAmount,netWeight,unitWeight,currency,cost,price,profit,sale,hierarchy,certificate,expire,authorization,orderLeadTime,unitOrderLeadTime,minimumPacking,unitMinimumPacking,minimumOrder,paymentTerm,allocation)";
-                            //$strSQL=$strSQL." VALUES('$name','$code','$amount','$unitAmount','$netWeight','$unitNetWeight','$currency','$cost','$price','$sale','$hierarchy','$certificate','$expire','$authorization','$orderLeadTime','$unitOrderLeadTime','$minimumPacking','$unitMinimumPacking','$minimumOrder','$unitMinimumPacking','$minimumOrder','$paymentTerm','$allocation')";
-                            $profit=$price-$cost;
+                           $profit=$price-$cost;
                            fncInsertRecord("product","code",$code);
                            fncUpdateRecord("product","name='$name'","code='$code'");
                            fncUpdateRecord("product","amount='$amount'","code='$code'");
@@ -310,15 +275,8 @@
                            fncUpdateRecord("product","unitMinimumPacking='$unitMinimumPacking'","code='$code'");                       
                            fncUpdateRecord("product","minimumOrder='$minimumOrder'","code='$code'");
                            fncUpdateRecord("product","paymentTerm='$paymentTerm'","code='$code'");
-                           fncUpdateRecord("product","allocation='$allocation'","code='$code'");
-                        
-                              
-
-
-                                              
-
-                            //mysql_query($strSQL,$conn) or die("ไม่สามารถเพิ่มข้อมูล");
-
+                           fncUpdateRecord("product","allocation='$allocation'","code='$code'");                   
+                            
                             //update person
                              $resultPerson=mysql_query("SELECT*FROM person WHERE user LIKE '$username%' AND password LIKE '$password%'",$conn);
                             $rsPerson=mysql_fetch_array($resultPerson);
@@ -333,16 +291,18 @@
                              elseif($rsPerson[code7]=="0")$strSQL=$strSQL." SET code7='$code'";
                              elseif($rsPerson[code8]=="0")$strSQL=$strSQL." SET code8='$code'";
                              elseif($rsPerson[code9]=="0")$strSQL=$strSQL." SET code9='$code'";
-                             elseif($rsPerson[code10]=="0")$strSQL=$strSQL." SET code10='$code'";
-                            
-                            //print $name;
-                            //print $productCode;
-                             $strSQL=$strSQL." WHERE user='$username'";
+                             elseif($rsPerson[code10]=="0")$strSQL=$strSQL." SET code10='$code'";                            
+
+                            $strSQL=$strSQL." WHERE user='$username'";
                             mysql_query($strSQL,$conn) or die("ไม่สามารถเปรับปรุงข้อมูล");
                             $strSQL="SELECT*FROM person";
                             $result=mysql_query($strSQL,$conn);
-                            mysql_close($conn);}
+                            mysql_close($conn);
+                            }}
 
+
+
+                           
                                 
 
 
@@ -394,8 +354,11 @@
                         }          
                             mysql_close($conn);
 
+                           
 
 
+
+                          
 
 
                             /*
@@ -428,10 +391,60 @@
                             $odj->setAllocation($_POST["allocation"]);
 
                             $odj->printAll();
+
+
                             */
 
+                            function isOwner($code,$username,$password){
+  $conn=mysql_connect("localhost","root","password"); 
+  mysql_select_db("easystock",$conn);
+  $resultPerson=mysql_query("SELECT*FROM person WHERE user LIKE '$username%' AND password LIKE '$password%'",$conn);
+                            $rsPerson=mysql_fetch_array($resultPerson);
+
+                             
+                             if($rsPerson[code1]==$code)return 1;
+                             elseif($rsPerson[code2]==$code)return 1;
+                             elseif($rsPerson[code3]==$code)return 1;
+                             elseif($rsPerson[code4]==$code)return 1;
+                             elseif($rsPerson[code5]==$code)return 1;
+                             elseif($rsPerson[code6]==$code)return 1;
+                             elseif($rsPerson[code7]==$code)return 1;
+                             elseif($rsPerson[code8]==$code)return 1;
+                             elseif($rsPerson[code9]==$code)return 1;
+                             elseif($rsPerson[code10]==$code)return 1;
+                             else return 0;                          
+
+   mysql_close($conn);
+                           
+                            
+}
+
+ function isAlreadyHavePerson($username){
+  $conn=mysql_connect("localhost","root","password"); 
+  mysql_select_db("easystock",$conn);
+  $resultPerson=mysql_query("SELECT*FROM person WHERE user LIKE '$username%'",$conn);
+                            $rsPerson=mysql_fetch_array($resultPerson);
+
+                             
+                             if($rsPerson[user]==$username)return 1;                             
+                             else return 0;                          
+
+   mysql_close($conn);
+                           
+                            
+}
 
 
+function isAlreadyHaveProduct($code){
+  $conn=mysql_connect("localhost","root","password"); 
+  mysql_select_db("easystock",$conn);
+   $rs=fncSelectRecord("product","code LIKE '$code%'");
+   if($rs[code]!=$code)return 0;
+   else return 1;
+   mysql_close($conn);
+                           
+                            
+}
 
 
 

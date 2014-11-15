@@ -70,12 +70,18 @@
                             <br><br>
                             
                                <?php 
-      if(isset($_GET["submitProductCode"])or isset($_GET["submitEdit"])){
+                               
+                               //load data
+            if(isset($_GET["submitProductCode"])or isset($_GET["submitEdit"])){
+                             
          $conn=mysql_connect("localhost","root","password"); 
                             mysql_select_db("easystock",$conn);
          $rs=fncSelectRecord("product","code LIKE '$productCode%'");                                  
-            }    
+            }   
+            ////edit
                if(isset($_GET["submitEdit"])){
+                              if(isAlreadyHaveProduct($code)==1&&$code!=$productCode)print "<br><br>**************  This product code has been publish **************<br><br><br>";
+                                else{
                             $conn=mysql_connect("localhost","root","password")or die("ไม่สามารถติดต่อกับเซิฟเวอ");
                             mysql_select_db("easystock",$conn)or die("ไม่สามารถเลือกฐานข้อมูล");                        
                             $profit=$price-$cost; 
@@ -124,7 +130,8 @@
                            fncUpdateRecord("product","minimumOrder='$minimumOrder'","code='$code'");
                            fncUpdateRecord("product","paymentTerm='$paymentTerm'","code='$code'");
                            fncUpdateRecord("product","allocation='$allocation'","code='$code'");                         
-                           mysql_close($conn);}    
+                           mysql_close($conn);}}  
+        
       ?>
                             
 
@@ -209,6 +216,18 @@
 
 
                             <?php 
+               
+
+  function isAlreadyHaveProduct($code){
+  $conn=mysql_connect("localhost","root","password"); 
+  mysql_select_db("easystock",$conn);
+   $rs=fncSelectRecord("product","code LIKE '$code%'");
+   if($rs[code]!=$code)return 0;
+   else return 1;
+   mysql_close($conn);
+                           
+                            
+}
 
 
                           
