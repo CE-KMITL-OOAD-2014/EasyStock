@@ -77,7 +77,7 @@
           <input type="text" id="username" name="name"/>
         </p>
         <p><span>Code:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="text" id="username" name="code" />
+          <input type="text" id="username" placeholder="Except 0 or blank" name="code" />
         </p>
         <p><span>Quantity:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input type="text" id="username" name="amount"/>
