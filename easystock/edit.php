@@ -160,72 +160,72 @@
 
                   <h2>General</h2>
                   <p><span>Name:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="name" value=<?  if(isset($_GET["submitProductCode"]))echo $rs[name];?>>
+                    <input type="text" id="username" name="name" value="<?  if(isset($_GET["submitProductCode"]))echo $rs[name];?>">
                   </p>
                   <p><span>Code:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="code" value=<?  if(isset($_GET["submitProductCode"]))echo $rs[code];?>>
+                    <input type="text" id="username" name="code" placeholder="Except 0 or blank" value="<?  if(isset($_GET["submitProductCode"]))echo $rs[code];?>">
                   </p>
                   <p><span>Quantity:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="amount"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[amount];?>>
+                    <input type="text" id="username" name="amount"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[amount];?>">
                   </p>
                   <p><span>Unit quantity:</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="unitAmount"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[unitAmount];?>>
+                    <input type="text" id="username" name="unitAmount"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[unitAmount];?>">
                   </p>
                   <p><span>NetWeight:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="netWeight" value=<?  if(isset($_GET["submitProductCode"]))echo $rs[netWeight];?>>
+                    <input type="text" id="username" name="netWeight" value="<?  if(isset($_GET["submitProductCode"]))echo $rs[netWeight];?>">
                   </p>
                   <p><span>Unit NetWeight:</span>
-                    <input type="text" id="username" name="unitNetWeight" value=<?  if(isset($_GET["submitProductCode"]))echo $rs[unitNetWeight];?>>
+                    <input type="text" id="username" name="unitNetWeight" value="<?  if(isset($_GET["submitProductCode"]))echo $rs[unitWeight];?>">
                   </p><br>  
                   
                   <h2>Finance</h2>
 
                   <p><span>Currency:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="currency"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[currency];?>>
+                    <input type="text" id="username" name="currency"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[currency];?>">
                   </p>
                   <p><span>Cost:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="cost"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[cost];?>>
+                    <input type="text" id="username" name="cost"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[cost];?>">
                   </p>
                   <p><span>Sale price:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="price"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[price];?>>
+                    <input type="text" id="username" name="price"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[price];?>">
                   </p>
                   
                   <p><span>Sales amount:</span>
-                    <input type="text" id="username" name="sale"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[sale];?>>
+                    <input type="text" id="username" name="sale"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[sale];?>">
                   </p><br>
                   <h2>Feature</h2>
 
                   <p><span>Hierarchy:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="hierarchy"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[hierarchy];?>>
+                    <input type="text" id="username" name="hierarchy"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[hierarchy];?>">
                   </p>
                   <p><span>Certificate:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="certificate"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[certificate];?>>
+                    <input type="text" id="username" name="certificate"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[certificate];?>">
                   </p>
                   <p><span>Expire:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="expire"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[expire];?>>
+                    <input type="text" id="username" name="expire"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[expire];?>">
                   </p>
                   <p><span>Authorization:</span>
-                    <input type="text" id="username" name="authorization"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[authorization];?>>
+                    <input type="text" id="username" name="authorization"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[authorization];?>">
                   </p><br>
                   <h2>Logistic</h2>
                   <p><span>Order lead time:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="orderLeadTime"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[orderLeadTime];?>>
+                    <input type="text" id="username" name="orderLeadTime"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[orderLeadTime];?>">
                   </p>
                   <p><span>Unit order lead time:</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="username" name="unitOrderLeadTime"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[unitOrderLeadTime];?>>
+                    <input type="text" id="username" name="unitOrderLeadTime"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[unitOrderLeadTime];?>">
                   </p>
                   <p><span>Minimum packing:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   <input type="text" id="username" name="minimumPacking"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[minimumPacking];?>>
+                   <input type="text" id="username" name="minimumPacking"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[minimumPacking];?>">
                  </p>
                  
                  <p><span>Minimum order:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" id="username" name="minimumOrder"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[minimumOrder];?>>
+                  <input type="text" id="username" name="minimumOrder"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[minimumOrder];?>">
                 </p>
                 <p><span>Payment term:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" id="username" name="paymentTerm"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[paymentTerm];?>>
+                  <input type="text" id="username" name="paymentTerm"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[paymentTerm];?>">
                 </p>
                 <p><span>Location:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" id="username" name="allocation"value=<?  if(isset($_GET["submitProductCode"]))echo $rs[allocation];?>>                            
+                  <input type="text" id="username" name="allocation"value="<?  if(isset($_GET["submitProductCode"]))echo $rs[allocation];?>">                            
                 </p><br>
               </p><br><input type="submit" name="submitEdit" value=" Submit Product ">
 
